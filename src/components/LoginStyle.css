@@ -1,0 +1,106 @@
+.container{
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    width: 550px;
+    margin-top: 50px;
+    background-color: #fff;
+    border-radius: 9px;
+    padding-bottom: 1px;
+}
+
+.header{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 9px;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.text{
+    background-image: linear-gradient(90deg, #4668DB, #AF69B3);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 30px;
+    font-weight: 700;
+    font-family: "Avenir Next LT Pro Bold";
+}
+
+.underline{
+    width: 70px;
+    height: 4px;
+    background: #AF69B3;
+    border-radius: 9px;
+}
+
+.inputs{
+    margin-top: 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.input{
+    display: flex;
+    align-items: center;
+    margin: auto;
+    width: 400px;
+    height: 50px;
+    background: #242424;
+    border-radius: 9px;
+}
+
+.input img{
+    margin: 0px 30px;
+}
+
+.input input{
+    height: 50px;
+    width: 400px;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: white;
+    font-size: 19px;
+    font-family: "Avenir Next LT Pro";
+}
+
+.forgot-password{
+    padding-left: 78px;
+    margin-top: 27px;
+    color: grey;
+    font-size: 14px;
+    font-family: "Avenir Next LT Pro";
+}
+
+.forgot-password span{
+    color:#AF69B3;
+    cursor: pointer;
+}
+
+.submit-container{
+    display: flex;
+    gap: 30px;
+    margin: 30px auto;
+}
+
+.submit{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 180px;
+    height: 45px;
+    color: #fff;
+    background: linear-gradient(90deg, #4668DB, #AF69B3);
+    border-radius: 50px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    font-family: "Avenir Next LT Pro";
+}
+
+.gray{
+    background: rgb(220, 220, 220);
+    color: gray;
+}
