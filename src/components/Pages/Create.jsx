@@ -1,6 +1,6 @@
 import React from "react";
 import Header from "../Header";
-import Form from "../Form";
+import CreateTransaction from "../CreateTransaction";
 import { width } from "@mui/system";
 
 const Create = () => {
@@ -9,7 +9,7 @@ const Create = () => {
             <Header />
             <div style={containerStyle}> 
                 <div style={divFormStyle}>
-                    <Form />
+                    <CreateTransaction />
                 </div> 
             </div>  
         </div>

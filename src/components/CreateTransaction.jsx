@@ -25,7 +25,7 @@ const isFilled = (value) => {
   return "linear-gradient(to right, #AF69B3, #7B69C7, #4668DB) 1";
 };
 
-const Form = () => {
+const CreateTransaction = () => {
   const [description, setDescription] = useState();
   const [categoryValue, setCategoryValue] = useState();
   const [category, setCategory] = useState();
@@ -236,4 +236,4 @@ const textfield = (value) => ({
   },
 });
 
-export default Form;
+export default CreateTransaction;
