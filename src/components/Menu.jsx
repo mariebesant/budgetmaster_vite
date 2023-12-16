@@ -6,36 +6,46 @@ import axios from "axios";
 const Menu = () => {
   const navigate = useNavigate();
 
-  const testFetch = async () => {
-    const response = await fetch("/api/getExampleData");
-    const data = await response.json();
-    
-    console.log(data);
+  async function testLogin() {
+    const data = {
+      password: "hallo",
+      username: "besantma"
+    };
+  
+    try {
+      const response = await fetch('/api/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      });
+  
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+  
+      const jsonResponse = await response.json();
+      console.log(jsonResponse);
+    } catch (error) {
+      console.error(error);
+    }
   }
 
-  const handleLogoutClick = async () => {
-    const response = await fetch('api/logout');
-
-    console.log(response)
-
-    if (response.ok) {
-      console.log('Logout successful');
-      navigate('/login');
-    } else {
-      // Handle error
-      console.error('Logout request failed');
-    }
-  };
+  async function testLogout() {
+    const response = await fetch('/api/logout');
+    console.log(await response.json());
+  }
 
   return (
     
     <div style={ MenuContainer }>
         
-        <div style={ Buttons } onClick={testFetch}>Meine Finanzen</div>
+        <div style={ Buttons } onClick={testLogin}>Meine Finanzen</div>
         <div style={ Buttons } onClick={() => navigate('/')}>Einstellungen</div>
-        <div style={ Buttons }>Lightmode</div>
+        <div style={ Buttons } >Lightmode</div>
         <hr style={Line}/>
-        <div style={ Buttons }>Abmelden</div>
+        <div style={ Buttons } onClick={testLogout}>Abmelden</div>
 
     </div>
 

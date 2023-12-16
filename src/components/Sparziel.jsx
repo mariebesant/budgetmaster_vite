@@ -4,45 +4,69 @@ import "./fonts/fonts.css";
 
 
 function Sparziel() {
-    /*const response = await fetch('https://api.npms.io/v2/search?q=react');
-    const data = await response.json();
-    this.setState({ totalReactPackages: data.total })*/
+  const [savings, setSavings] = useState(null);
+  const [savingsGoal, setSavingsGoal] = useState(10000);
+  const [state, setState] = useState({ value: 0, data: [] });
+  const [loading, setLoading] = useState(true);
 
-    /*fetch('http://85.215.77.230//getBalance')
-        .then(response => response.json())
-        .then(data => this.setSavings( data.total ));*/
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('api/getSavingsGoal', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        });
+    
+        if (response.ok) {
+          const jsonResponse = await response.json();
+          console.log(jsonResponse);
+          setSavings(jsonResponse.savings_goal);
+          setState({ value: 0, data: getData(jsonResponse.savings_goal) });
+          setLoading(false);
+        } 
+      } catch (error) {
+        console.error(error);
+        setLoading(false);
+      }
+    };
 
-    const [savings, setSavings] = useState(8723.36);
-    const [savingsGoal, setSavingsGoal] = useState(10000);
-    const [state, setState] = useState({ value: 0, data: getData(savings) });
+    fetchData();
+  }, []);
+
 
     useEffect(() => {
-      const fetchData = async () => {
-        const response = await fetch('http://85.215.77.230//getBalance');
-        const data = await response.json();
-        setSavings(data.total);
-        const newData = getData(data.total);
-        setState({ value: 0, data: newData });
-      };
-
-      fetchData();
-
       let value = 0;
       const setStateInterval = setInterval(() => {
           value += savings;
           value = value >= savings ? setState({ value, data: getData(value)}) : value;
       }, 200);
-
+      console.log(savings);
+    
       return () => {
           clearInterval(setStateInterval);
       };
-    }, []);
+    }, [savings]);
 
     function getData(value) {
+      console.log("prüfe: "+ value);
         return [
             { x: 1, y: value },
             { x: 2, y: savingsGoal - value },
         ];
+    }
+    
+    function calcFont(value) {
+      if (value < 100000) {
+        return 45;
+      } 
+      if(value <1000000){
+        return 39;
+      }
+      else {
+        return 33;
+      }
     }
 
     const GradientSlice = props => {
@@ -60,18 +84,10 @@ function Sparziel() {
       );
     };
 
-    function calcFont(value) {
-      if (value < 100000) {
-        return 45;
-      } 
-      if(value <1000000){
-        return 39;
-      }
-      else {
-        return 33;
-      }
+    if (loading) {
+      return <div>Loading...</div>;
     }
-  
+
     return (
       <div>
         <svg viewBox="0 0 400 400" width="100%" height="100%">
