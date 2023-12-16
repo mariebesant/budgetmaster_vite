@@ -1,9 +1,41 @@
 import React from "react";
+import { useState, useEffect } from "react";
 import Header from "../Header";
 import Sparziel from "../Sparziel";
 import Transaktionen from "../Transaktionen";
 
 const Dashboard = () => {
+  const [savingsGoal, setSavingsGoal] = useState(0);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('api/getSavingsGoal', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        });
+    
+        if (response.ok) {
+          const jsonResponse = await response.json();
+          setSavingsGoal(convertEuro(jsonResponse.savings_goal));
+          setLoading(false);
+        } 
+      } catch (error) {
+        console.error(error);
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  function convertEuro(num) {
+    return (num / 100).toFixed(2);
+  }
+
   return (
     <div>
       <Header />
@@ -23,6 +55,9 @@ const Dashboard = () => {
 
         <div className="Sparziel" style={sparzielStyle}>
           <Sparziel />
+          <div style={anzeigeSparziel}>
+            Sparziel:  {savingsGoal}€
+          </div> 
         </div>
       </div>
     </div>
@@ -53,7 +88,16 @@ const sparzielStyle = {
   gridColumn: "2 / 3",
   gridRow: "1 / 2",
   width: "300px",
+  display:"flex",
   justifySelf: "center",
+  flexDirection: "column"
+};
+const anzeigeSparziel = {
+  fontFamily: "Avenir Next LT Pro",
+  fontSize: "17px",
+  fontWeight: "100",
+  color: "#E1E1E1",
+  textAlign: "center"
 };
 
 const financeListStyle = {};
