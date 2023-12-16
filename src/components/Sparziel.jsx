@@ -84,10 +84,13 @@ function Sparziel() {
       );
     };
 
+    function convertEuro(num) {
+      return (num / 100).toFixed(2);
+    }
+
     if (loading) {
       return <div>Loading...</div>;
     }
-
     return (
       <div>
         <svg viewBox="0 0 400 400" width="100%" height="100%">
@@ -110,7 +113,7 @@ function Sparziel() {
                   verticalAnchor="middle"
                   x={200}
                   y={200}
-                  text={`${newProps.value.toFixed(2)} €`}
+                  text={`${convertEuro(newProps.value)} €`}
                   style={{ fontSize: calcFont(newProps.value), fontFamily: "Avenir Next LT Pro", fill: '#E1E1E1'}}
                 />
               );
