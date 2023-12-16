@@ -18,32 +18,48 @@ const Elemente = ({ name, category, date, amount }) => {
   };
 
   let categoryIcon = (
-    <HelpOutlineIcon className="defaultIcon"></HelpOutlineIcon>
+    <HelpOutlineIcon
+      className="defaultIcon"
+      style={{ fontSize: 40 }}
+    ></HelpOutlineIcon>
   );
 
   switch (category) {
     case "Technik":
-      categoryIcon = <TvIcon className="technikIcon" />;
+      categoryIcon = (
+        <TvIcon className="technikIcon" style={{ fontSize: 40 }} />
+      );
       break;
     case "Lebensmittel":
-      categoryIcon = <ShoppingCartIcon className="shoppingIcon" />;
+      categoryIcon = (
+        <ShoppingCartIcon className="shoppingIcon" style={{ fontSize: 40 }} />
+      );
       break;
     case "Essen":
-      categoryIcon = <FastfoodIcon className="foodIcon" />;
+      categoryIcon = (
+        <FastfoodIcon className="foodIcon" style={{ fontSize: 40 }} />
+      );
       break;
     case "Auto":
-      categoryIcon = <DirectionsCarIcon className="carIcon" />;
+      categoryIcon = (
+        <DirectionsCarIcon className="carIcon" style={{ fontSize: 40 }} />
+      );
       break;
     case "Gehalt":
-      categoryIcon = <WorkIcon className="workIcon" />;
+      categoryIcon = <WorkIcon className="workIcon" style={{ fontSize: 40 }} />;
       break;
     case "Sonstiges":
-      categoryIcon = <AutoAwesomeIcon className="otherIcon" />;
+      categoryIcon = (
+        <AutoAwesomeIcon className="otherIcon" style={{ fontSize: 40 }} />
+      );
       break;
 
     // Füge weitere Cases hinzu, wenn du mehr Kategorien hinzufügst
     default:
-      <HelpOutlineIcon className="defaultIcon"></HelpOutlineIcon>;
+      <HelpOutlineIcon
+        className="defaultIcon"
+        style={{ fontSize: 40 }}
+      ></HelpOutlineIcon>;
       break;
   }
 
