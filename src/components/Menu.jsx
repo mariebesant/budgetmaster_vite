@@ -1,7 +1,6 @@
 import React from "react";
 import "./fonts/fonts.css"
 import { useNavigate } from 'react-router-dom';
-import axios from "axios"; 
 
 const Menu = () => {
   const navigate = useNavigate();

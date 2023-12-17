@@ -9,11 +9,11 @@ const Landingpage = () => {
     const navigate = useNavigate();
 
     const handleRegisterClick = () => {
-        navigate('/dashboard');
+        navigate('/login');
     };
 
-    const handleLoginClick = () => {
-        navigate('/login');
+    const handleDashboardClick = () => {
+        navigate('/dashboard');
     };
 
 
@@ -32,7 +32,7 @@ const Landingpage = () => {
                 </div>
 
                 <div style={buttons}>
-                    <button style={login} onClick={handleLoginClick}>Login</button>
+                    <button style={login} onClick={handleDashboardClick}>Dashboard</button>
                     <button style={login} onClick={handleRegisterClick}>Registrieren</button>
                 </div>
             
