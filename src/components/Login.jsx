@@ -39,6 +39,8 @@ const Login = () => {
       
           if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
+          } else {
+            navigate('/dashboard')
           }
       
           const jsonResponse = await response.json();
