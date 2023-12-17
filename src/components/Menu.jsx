@@ -43,7 +43,7 @@ const Menu = () => {
     
     console.log(data)
     if(response.ok && data.isLoggedIn){
-      return navigate('/create');
+      return navigate('/dashboard');
     }
     return alert("Logge dich erst ein!")
   }
