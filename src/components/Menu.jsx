@@ -31,20 +31,37 @@ const Menu = () => {
     }
   }
 
-  async function testLogout() {
+  async function logout() {
     const response = await fetch('/api/logout');
     console.log(await response.json());
+  }
+
+  async function meineFinanzen() {
+    const response = await fetch('/api/checkLoggedIn')
+    const data = await response.json();
+    
+    console.log(data)
+    if(response.ok && data.isLoggedIn){
+      return navigate('/dashboard');
+    }
+    return alert("Logge dich erst ein!")
   }
 
   return (
     
     <div style={ MenuContainer }>
         
+
+        <div style={ Buttons } onClick={meineFinanzen}>Meine Finanzen</div>
+        <div style={ Buttons } onClick={() => navigate('/')}>Einstellungen</div>
+        <div style={ Buttons } onClick={testLogin}>Lightmode</div>
+
         <div style={ Buttons } >Meine Finanzen</div>
         <div style={ Buttons } >Einstellungen</div>
         <div style={ Buttons } >Lightmode</div>
+
         <hr style={Line}/>
-        <div style={ Buttons } onClick={testLogout}>Abmelden</div>
+        <div style={ Buttons } onClick={logout}>Abmelden</div>
 
     </div>
 
