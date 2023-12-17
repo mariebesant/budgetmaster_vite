@@ -126,7 +126,7 @@ const CreateTransaction = () => {
         />
       </div>
       <Button style={buttonStyle} onClick={() => console.log(comment)}>
-        Text
+        fertig
       </Button>
     </Box>
   );
@@ -173,6 +173,8 @@ const buttonStyle = {
   borderRadius: "5px",
   background: "linear-gradient(to right, #AF69B3, #7B69C7, #4668DB)",
   marginRight: "30px",
+  marginLeft: "10px",
+  marginTop: "8px",
   cursor: "pointer", 
 }
 
