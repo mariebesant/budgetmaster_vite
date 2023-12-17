@@ -1,5 +1,8 @@
+@import "./fonts/fonts.css";
+
 .changeButton {
-  margin-left: 10px;
+  margin-left: 5px;
+  margin-right: 5px;
   padding: 5px 5px;
   background-color: #242424;
   border-radius: 10px;
@@ -21,12 +24,14 @@
 
 .box {
   background-color: #121212;
-  height: 95%;
+  height: 67%;
   overflow-y: scroll;
   overflow-x: hidden;
+  margin-top: 20px;
 }
 
 .elements {
+  font-family: "Avenir Next LT Pro Bold", sans-serif;
   background-color: #242424;
   color: #fff;
   border-radius: 10px;
@@ -60,6 +65,7 @@
   }
 
   .elementsDetailsBox {
+    font-family: "Avenir Next LT Pro", sans-serif;
     display: flex;
     flex-direction: row;
     justify-content: center;

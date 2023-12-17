@@ -3,6 +3,8 @@ import { useState, useEffect } from "react";
 import Header from "../Header";
 import Sparziel from "../Sparziel";
 import Transaktionen from "../Transaktionen";
+import AddFinance from "../AddFinance";
+import Sidebar from "../Sidebar";
 
 const Dashboard = () => {
   const [savingsGoal, setSavingsGoal] = useState(0);
@@ -41,7 +43,7 @@ const Dashboard = () => {
       <Header />
       <div style={gridContainer}>
         <div className="Sidebar" style={sidebarStyle}>
-          sideBar
+          <Sidebar />
         </div>
         <div className="FinanceList" style={financeListStyle}>
           <Transaktionen />
@@ -50,7 +52,7 @@ const Dashboard = () => {
           seitending
         </div>
         <div className="AddFinance" style={addFinanceStyle}>
-          Add
+          <AddFinance />
         </div>
 
         <div className="Sparziel" style={sparzielStyle}>
@@ -72,14 +74,14 @@ const gridContainer = {
 };
 
 const sidebarStyle = {
-  backgroundColor: "blue",
+  //backgroundColor: "blue",
   gridColumn: "1 / 2",
   gridRow: "1 / 4",
   height: "calc(100vh - 80px)",
 };
 
 const addFinanceStyle = {
-  backgroundColor: "purple",
+  //backgroundColor: "purple",
   gridColumn: "2 /3",
   gridRow: "2 / 3",
 };
@@ -103,7 +105,7 @@ const anzeigeSparziel = {
 const financeListStyle = {};
 
 const pufferStyle = {
-  backgroundColor: "yellow",
+  //backgroundColor: "yellow",
   gridColumn: "3 / 4",
   gridRow: "1 / 4",
   height: "calc(100vh - 80px)",

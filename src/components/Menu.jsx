@@ -1,7 +1,6 @@
 import React from "react";
 import "./fonts/fonts.css"
 import { useNavigate } from 'react-router-dom';
-import axios from "axios"; 
 
 const Menu = () => {
   const navigate = useNavigate();
@@ -52,9 +51,15 @@ const Menu = () => {
     
     <div style={ MenuContainer }>
         
+
         <div style={ Buttons } onClick={meineFinanzen}>Meine Finanzen</div>
         <div style={ Buttons } onClick={() => navigate('/')}>Einstellungen</div>
         <div style={ Buttons } onClick={testLogin}>Lightmode</div>
+
+        <div style={ Buttons } >Meine Finanzen</div>
+        <div style={ Buttons } >Einstellungen</div>
+        <div style={ Buttons } >Lightmode</div>
+
         <hr style={Line}/>
         <div style={ Buttons } onClick={logout}>Abmelden</div>
 

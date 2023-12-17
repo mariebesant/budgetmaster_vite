@@ -1,5 +1,6 @@
 import React from "react";
 import Elemente from "./Elemente";
+import "./fonts/fonts.css";
 import "./Transaktionen.css";
 
 const elemente = [

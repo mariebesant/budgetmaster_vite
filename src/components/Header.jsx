@@ -3,16 +3,23 @@ import logo from "./Images/WordLogo.png";
 import menuIcon from "./Images/ProfileIcon.png";
 import Menu from "./Menu";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 
 const Header = () => {
   const [menuVisible, setMenuVisible] = useState(false);
 
+  const navigate = useNavigate();
+
+  const handleLogoClick = () => {
+    navigate('/');
+  }
+
   return (
     <div >
       <header style={headerStyle}>
         <div style={logoContainerStyle}>
-          <img src={logo} alt="Logo" style={logoStyle} />
+          <img src={logo} alt="Logo" style={logoStyle} onClick={handleLogoClick} />
           <img
             src={menuIcon}
             alt="Menu Icon"

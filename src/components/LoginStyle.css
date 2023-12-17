@@ -24,7 +24,6 @@
     -webkit-text-fill-color: transparent;
     font-size: 30px;
     font-weight: 700;
-    font-family: "Avenir Next LT Pro Bold";
 }
 
 .underline{
@@ -63,7 +62,6 @@
     outline: none;
     color: white;
     font-size: 19px;
-    font-family: "Avenir Next LT Pro";
 }
 
 .forgot-password{
@@ -71,7 +69,6 @@
     margin-top: 27px;
     color: grey;
     font-size: 14px;
-    font-family: "Avenir Next LT Pro";
 }
 
 .forgot-password span{
@@ -81,6 +78,8 @@
 
 .submit-container{
     display: flex;
+    align-items: center;
+    justify-content: center;
     gap: 30px;
     margin: 30px auto;
 }
@@ -89,18 +88,33 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 180px;
-    height: 45px;
+    width: 140px;
+    height: 35px;
     color: #fff;
     background: linear-gradient(90deg, #4668DB, #AF69B3);
     border-radius: 50px;
-    font-size: 16px;
+    font-size: 12px;
     font-weight: 700;
     cursor: pointer;
-    font-family: "Avenir Next LT Pro";
 }
 
 .gray{
     background: rgb(220, 220, 220);
     color: gray;
+}
+
+.login-container{
+    display: flex;
+    margin: auto;
+    margin-top: 20px;
+    justify-content: center;
+    align-items: center;
+    width: 120px;
+    height: 40px;
+    color: #fff;
+    background: #AF69B3;
+    border-radius: 9px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
 }

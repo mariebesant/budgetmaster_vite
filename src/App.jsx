@@ -4,6 +4,7 @@ import Homepage from './components/Pages/Homepage';
 import Dashboard from './components/Pages/Dashboard';
 import Create from './components/Pages/Create';
 import LoginSignup from './components/Pages/LoginSignup';
+import ForgotPassword from './components/Pages/ForgotPassword';
 
 
 function App() {
@@ -14,6 +15,7 @@ function App() {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/create" element={<Create />} />
           <Route path="/login" element={<LoginSignup />} />
+          <Route path='/forgotpassword' element={<ForgotPassword />} />
         </Routes>
       </BrowserRouter>
 
