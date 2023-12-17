@@ -40,8 +40,8 @@ const Menu = () => {
     
     <div style={ MenuContainer }>
         
-        <div style={ Buttons } onClick={testLogin}>Meine Finanzen</div>
-        <div style={ Buttons } onClick={() => navigate('/')}>Einstellungen</div>
+        <div style={ Buttons } >Meine Finanzen</div>
+        <div style={ Buttons } >Einstellungen</div>
         <div style={ Buttons } >Lightmode</div>
         <hr style={Line}/>
         <div style={ Buttons } onClick={testLogout}>Abmelden</div>

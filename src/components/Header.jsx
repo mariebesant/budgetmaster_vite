@@ -18,8 +18,8 @@ const Header = () => {
   return (
     <div >
       <header style={headerStyle}>
-        <div style={logoContainerStyle} onClick={handleLogoClick}>
-          <img src={logo} alt="Logo" style={logoStyle} />
+        <div style={logoContainerStyle}>
+          <img src={logo} alt="Logo" style={logoStyle} onClick={handleLogoClick} />
           <img
             src={menuIcon}
             alt="Menu Icon"
