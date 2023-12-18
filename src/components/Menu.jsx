@@ -34,6 +34,8 @@ const Menu = () => {
   async function logout() {
     const response = await fetch('/api/logout');
     console.log(await response.json());
+    alert('Du wurdest ausgeloggt.')
+    navigate('/');
   }
 
   async function meineFinanzen() {
