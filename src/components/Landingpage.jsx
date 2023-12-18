@@ -12,10 +12,17 @@ const Landingpage = () => {
         navigate('/login');
     };
 
-    const handleDashboardClick = () => {
-        navigate('/dashboard');
-    };
 
+    async function handleLoggedIn() {
+        const response = await fetch('/api/checkLoggedIn')
+        const data = await response.json();
+        
+        console.log(data)
+        if(response.ok && data.isLoggedIn){
+          return navigate('/dashboard');
+        }
+        return alert("Logge dich erst ein!")
+      }
 
     return (
     <div>
@@ -32,7 +39,7 @@ const Landingpage = () => {
                 </div>
 
                 <div style={buttons}>
-                    <button style={login} onClick={handleDashboardClick}>Dashboard</button>
+                    <button style={login} onClick={handleLoggedIn}>Dashboard</button>
                     <button style={login} onClick={handleRegisterClick}>Registrieren</button>
                 </div>
             

@@ -49,6 +49,7 @@ const Login = () => {
             if(!response.ok) {
                 throw new Error(`HTTP Error! Status: ${response.status}`);
             } else {
+                alert('Du wurdest erfolgreich registriert.')
                 navigate('/dashboard')
             }
 
@@ -75,6 +76,7 @@ const Login = () => {
           });
       
           if (!response.ok) {
+            alert('Bitte gebe einen korrekten Benutzernamen und Passwort ein.');
             throw new Error(`HTTP error! status: ${response.status}`);
           } else {
             navigate('/dashboard')
