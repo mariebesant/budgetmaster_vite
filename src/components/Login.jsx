@@ -14,18 +14,18 @@ const Login = () => {
 
     const [action, setAction] = useState("Registrieren");
 
+    const navigate=useNavigate();
+
+    const handleForgotPassword = () => {
+        navigate('/forgotpassword');
+    }
+
     const [firstname, firstnameUpdate] = useState('');
     const [lastname, lastnameupdate] = useState('');
     const [email, emailupdate] = useState('');
     const [birthdate, birthdateupdate] = useState('');
     const [username, usernameupdate] = useState('');
     const [passwort, passwortupdate] = useState('');
-
-    const navigate=useNavigate();
-
-    const handleForgotPassword = () => {
-        navigate('/forgotpassword');
-    }
 
     async function register() {
         const data = {
@@ -185,9 +185,6 @@ const Login = () => {
                 Passwort vergessen? <span onClick={handleForgotPassword}>Hier klicken!</span>
             </div>}
 
-
-
-
             {action==="Registrieren"?<div></div>:<div type="submit" onClick={login} className="login-container" >
                     Login
                 </div>}
@@ -195,8 +192,6 @@ const Login = () => {
             {action==="Anmelden"?<div></div>:<div type="submit" onClick={register} className="login-container" >
                     Registrieren
             </div>}
-
-
 
             <div className="submit-container">
                 <div className={action==="Anmelden"?"submit gray":"submit"} onClick={()=>{setAction("Registrieren")}}>
