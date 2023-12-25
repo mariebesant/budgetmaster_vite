@@ -1,79 +1,130 @@
+/**
+ * @file Landingpage.jsx
+ * @description React-Komponente für die Hauptseite der Anwendung.
+ * Die `Landingpage`-Komponente repräsentiert die Hauptseite der Anwendung.
+ * Sie enthält eine kurze Beschreibung der Anwendung, Buttons zum Navigieren
+ * zum Dashboard und zur Registrierungsseite, sowie ein Tutorial.
+ *
+ * @component
+ * @example
+ * import Landingpage from './Landingpage';
+ * // ... JSX innerhalb der Anwendung
+ * <Landingpage />
+ */
+
 import React from "react";
-import picture from "./Images/tierschutz-hunde.png";
+import picture from "./Images/Placeholder.png";
 import "./fonts/fonts.css";
-import Header from "./Header";
 import { useNavigate } from 'react-router-dom';
 
-
+/**
+ * Landingpage Funktionalkomponente
+ *
+ * @function
+ * @returns {JSX.Element} - React JSX Element
+ * @description Die `Landingpage`-Funktionalkomponente repräsentiert die Hauptseite
+ * der Anwendung und enthält eine Überschrift, eine Beschreibung, Buttons zum Navigieren
+ * und ein Tutorialbild.
+ */
 const Landingpage = () => {
+  
+    // React-Router Hook zum Navigieren zwischen Seiten
     const navigate = useNavigate();
 
+     /**
+     * Handler für den Klick auf den Registrieren-Button
+     * Navigiert zur Login-Seite
+     *
+     * @function
+     */
     const handleRegisterClick = () => {
         navigate('/login');
     };
 
-
+    /**
+     * @description
+     * Funktion, die überprüft, ob der Benutzer eingeloggt ist, indem sie eine Anfrage an die Backend-API sendet.
+     * Wenn der Benutzer eingeloggt ist, wird er zum Dashboard weitergeleitet, andernfalls wird eine Benachrichtigung angezeigt.
+     * 
+     * @function
+     * @async
+     */
     async function handleLoggedIn() {
+        // Sendet eine Anfrage an die Backend-API, um den Authentifizierungsstatus zu überprüfen
         const response = await fetch('/api/checkLoggedIn')
+        // Extrahiert JSON-Daten aus der Antwort
         const data = await response.json();
         
+        // Protokolliert die erhaltenen Daten (ür Debugging-Zwecke)
         console.log(data)
+        // Überprüft, ob die Antwort erfolgreich war und der Benutzer eingeloggt ist
         if(response.ok && data.isLoggedIn){
+          // Leitet den Benutzer zum Dashboard weiter
           return navigate('/dashboard');
         }
+        // Zeigt eine Benachrichtigung an, wenn der Benutzer nicht eingeloggt ist
         return alert("Logge dich erst ein!")
       }
 
+    /**
+     * Rendermethode für die Landingpage-Komponente
+     *
+     * @function
+     * @returns {JSX.Element} - React JSX Element
+     * @description Diese Methode rendert die Hauptseite der Anwendung mit einer Überschrift,
+     * Beschreibungstext, Buttons und einem Tutorialbild.
+     */
     return (
-    <div>
-        <div style={landingpage}>
-            
-            <div style={text}>
-                <div style={header}>Dein digitaler Finanzassistent</div>
+        <div>
+            {/* Hauptcontainer für die Landingpage */}
+            <div style={landingpage}>
+                {/* Textcontainer mit Beschreibung und Buttons */}
+                <div style={text}>
+                    {/* Überschrift */}
+                    <div style={header}>Dein digitaler Finanzassistent</div>
 
-                <div style={description}>
-                "Budget'Master" ist Ihre All-in-One-Plattform für ein müheloses Finanzmanagement. 
-                Behalten Sie den Überblick über Ausgaben und Einnahmen, setzen Sie individuelle Sparziele 
-                und verfolgen Sie mühelos Ihren finanziellen Fortschritt. Mit einer benutzerfreundlichen Oberfläche 
-                macht "Budget'Master" die Verwaltung Ihrer Finanzen so einfach wie nie zuvor.
+                    {/* Beschreibungstext */}
+                    <div style={description}>
+                        "Budget'Master" ist Ihre All-in-One-Plattform für ein müheloses
+                        Finanzmanagement. Behalten Sie den Überblick über Ausgaben und Einnahmen,
+                        setzen Sie individuelle Sparziele und verfolgen Sie mühelos Ihren finanziellen
+                        Fortschritt. Mit einer benutzerfreundlichen Oberfläche macht "Budget'Master"
+                        die Verwaltung Ihrer Finanzen so einfach wie nie zuvor.
+                    </div>
+
+                    {/* Buttoncontainer */}
+                    <div style={buttons}>
+                        {/* Dashboard-Button */}
+                        <button style={login} onClick={handleLoggedIn}>Dashboard</button>
+
+                        {/* Registrieren-Button */}
+                        <button style={login} onClick={handleRegisterClick}>Registrieren</button>
+                    </div>
                 </div>
 
-                <div style={buttons}>
-                    <button style={login} onClick={handleLoggedIn}>Dashboard</button>
-                    <button style={login} onClick={handleRegisterClick}>Registrieren</button>
+                {/* Tutorialcontainer */}
+                <div style={tutorial}>
+                    <img src={picture} alt="Tutorial" style={video}/>
                 </div>
-            
             </div>
-            <div style={tutorial}>
-                
-                <img src={picture} alt="Tutorial" style={video}/>
-
-            </div>
-
         </div>
-    </div>
-    
-  );
+    );
 };
 
-//Container für alle Elemente (Text, Video, Buttons)
-const landingpage = {   
-    //backgroundColor: "red",
+// Styling-Objekte für verschiedene Teile der Komponente
+const landingpage = {
     display: "flex",
     marginLeft: "auto",
     maxWidth: "1300px",
     marginTop: "16vh",
-    marginRight: "auto",    
-}
+    marginRight: "auto",
+};
 
-//Container für die Text Elemente + Buttons
 const text = {
     width: "50%",
     marginRight: "2%",
-    //backgroundColor: "green",
-}
+};
 
-//CSS für den Titel "Dein digitaler Finanzassistent"
 const header = {
     fontFamily: "Avenir Next LT Pro Bold",
     fontSize: "64px",
@@ -81,9 +132,8 @@ const header = {
     background: "linear-gradient(to right, #AF69B3, #7B69C7, #4668DB)",
     WebkitBackgroundClip: "text",
     color: "transparent",
-}
+};
 
-//CSS für die Beschreibung unter der Überschrift
 const description = {
     width: "460px",
     fontFamily: "Avenir Next LT Pro",
@@ -91,15 +141,13 @@ const description = {
     fontWeight: "100",
     marginTop: "40px",
     color: "#E1E1E1",
-}
+};
 
-//Container für beide Buttons (Login und Registrieren)
 const buttons = {
     display: "flex",
     marginTop: "100px",
-}
+};
 
-//CSS für den Button "Login"
 const login = {
     fontFamily: "Avenir Next LT Pro",
     color: "#E1E1E1",
@@ -111,8 +159,8 @@ const login = {
     borderRadius: "5px",
     background: "linear-gradient(to right, #AF69B3, #7B69C7, #4668DB)",
     marginRight: "30px",
-    cursor: "pointer", 
-}
+    cursor: "pointer",
+};
 
 const registration = {
     fontFamily: "Avenir Next LT Pro",
@@ -129,7 +177,6 @@ const registration = {
     cursor: "pointer", 
 }
 
-//CSS für den Button "Registrieren"
 const registration2 = {
     fontFamily: "Avenir Next LT Pro",
     color: "#E1E1E1",
@@ -143,17 +190,15 @@ const registration2 = {
     cursor: "pointer",
 }
 
-//Container für das Tutorial
 const tutorial = {
-    backgroundColor: "green",
+    backgroundColor: "",
     width: "50%",
-    marginLeft: "2%"
-}
+    marginLeft: "2%",
+};
 
-//CSS für das Tutorial-Video
 const video = {
-    width: "100%",
-    height: "100%",
+    width: "800px",
+    height: "auto",
 };
 
 export default Landingpage;
