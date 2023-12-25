@@ -63,14 +63,42 @@ const Menu = () => {
   }
 
   /**
-   * Testet die Abmeldung durch einen API-Aufruf.
+   * Funktion zum Ausloggen
+   *
+   * @description
+   * Sendet eine Anfrage zum Ausloggen an die Backend-API und leitet den Benutzer zurück zur Startseite.
+   * Zeigt eine Benachrichtigung an und gibt die Serverantwort in der Konsole aus.
    *
    * @async
    * @function
    */
-  async function testLogout() {
+  async function logout() {
     const response = await fetch('/api/logout');
     console.log(await response.json());
+    alert('Du wurdest ausgeloggt.')
+    navigate('/');
+  }
+  
+  /**
+   * Funktion zum Überprüfen des Login-Status und Navigieren zum Dashboard
+   *
+   * @description
+   * Sendet eine Anfrage an die Backend-API, um den Authentifizierungsstatus zu überprüfen.
+   * Leitet den Benutzer zum Dashboard, wenn er eingeloggt ist, oder zeigt eine Benachrichtigung an.
+   *
+   * @async
+   * @function
+   */
+
+  async function meineFinanzen() {
+    const response = await fetch('/api/checkLoggedIn')
+    const data = await response.json();
+    
+    console.log(data)
+    if(response.ok && data.isLoggedIn){
+      return navigate('/dashboard');
+    }
+    return alert("Logge dich erst ein!")
   }
 
   /**
@@ -87,13 +115,12 @@ const Menu = () => {
       <div style={MenuContainer}>
           
           {/* Menüoptionen */}
-          <div style={Buttons}>Meine Finanzen</div>
-          <div style={Buttons}>Einstellungen</div>
+          <div style={Buttons} onClick={meineFinanzen}>Meine Finanzen</div>
+          <div style={Buttons} onClick={() => navigate('/')}>Einstellungen</div>
           <div style={Buttons}>Lightmode</div>
           <hr style={Line} />
           {/* Abmelden-Option */}
-          <div style={Buttons} onClick={testLogout}>Abmelden</div>
-
+          <div style={Buttons} onClick={logout}>Abmelden</div>
       </div>
     </div>
   );

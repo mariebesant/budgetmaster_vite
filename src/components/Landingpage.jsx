@@ -27,28 +27,44 @@ import { useNavigate } from 'react-router-dom';
  * und ein Tutorialbild.
  */
 const Landingpage = () => {
+  
     // React-Router Hook zum Navigieren zwischen Seiten
     const navigate = useNavigate();
 
-    /**
-     * Handler für den Klick auf den Dashboard-Button
-     * Navigiert zur Dashboard-Seite
-     *
-     * @function
-     */
-    const handleDashboardClick = () => {
-        navigate('/dashboard');
-    };
-
-    /**
+     /**
      * Handler für den Klick auf den Registrieren-Button
-     * Navigiert zur Registrierungsseite
+     * Navigiert zur Login-Seite
      *
      * @function
      */
     const handleRegisterClick = () => {
         navigate('/login');
     };
+
+    /**
+     * @description
+     * Funktion, die überprüft, ob der Benutzer eingeloggt ist, indem sie eine Anfrage an die Backend-API sendet.
+     * Wenn der Benutzer eingeloggt ist, wird er zum Dashboard weitergeleitet, andernfalls wird eine Benachrichtigung angezeigt.
+     * 
+     * @function
+     * @async
+     */
+    async function handleLoggedIn() {
+        // Sendet eine Anfrage an die Backend-API, um den Authentifizierungsstatus zu überprüfen
+        const response = await fetch('/api/checkLoggedIn')
+        // Extrahiert JSON-Daten aus der Antwort
+        const data = await response.json();
+        
+        // Protokolliert die erhaltenen Daten (ür Debugging-Zwecke)
+        console.log(data)
+        // Überprüft, ob die Antwort erfolgreich war und der Benutzer eingeloggt ist
+        if(response.ok && data.isLoggedIn){
+          // Leitet den Benutzer zum Dashboard weiter
+          return navigate('/dashboard');
+        }
+        // Zeigt eine Benachrichtigung an, wenn der Benutzer nicht eingeloggt ist
+        return alert("Logge dich erst ein!")
+      }
 
     /**
      * Rendermethode für die Landingpage-Komponente
@@ -79,10 +95,10 @@ const Landingpage = () => {
                     {/* Buttoncontainer */}
                     <div style={buttons}>
                         {/* Dashboard-Button */}
-                        <button style={dashboardBtn} onClick={handleDashboardClick}>Dashboard</button>
+                        <button style={login} onClick={handleLoggedIn}>Dashboard</button>
 
                         {/* Registrieren-Button */}
-                        <button style={registrationBtn} onClick={handleRegisterClick}>Registrieren</button>
+                        <button style={login} onClick={handleRegisterClick}>Registrieren</button>
                     </div>
                 </div>
 
@@ -132,7 +148,7 @@ const buttons = {
     marginTop: "100px",
 };
 
-const dashboardBtn = {
+const login = {
     fontFamily: "Avenir Next LT Pro",
     color: "#E1E1E1",
     width: "125px",
@@ -146,20 +162,33 @@ const dashboardBtn = {
     cursor: "pointer",
 };
 
-const registrationBtn = {
+const registration = {
     fontFamily: "Avenir Next LT Pro",
     color: "#E1E1E1",
     width: "125px",
     height: "40px",
     textAlign: "center",
-    border: "0px solid",
+    border: "2px solid",
     borderImage: "linear-gradient(to right, #AF69B3, #7B69C7, #4668DB) 1",
     borderRadius: "5px",
     background: "linear-gradient(to right, #AF69B3, #7B69C7, #4668DB)",
     WebkitBackgroundClip: "square",
     marginRight: "30px",
+    cursor: "pointer", 
+}
+
+const registration2 = {
+    fontFamily: "Avenir Next LT Pro",
+    color: "#E1E1E1",
+    width: "125px",
+    height: "40px",
+    textAlign: "center",
+    border: "2px solid",
+    borderImage: "linear-gradient(to right, #AF69B3, #7B69C7, #4668DB) 1",
+    borderRadius: "5px",
+    background: "transparent",
     cursor: "pointer",
-};
+}
 
 const tutorial = {
     backgroundColor: "",

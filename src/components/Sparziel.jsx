@@ -5,7 +5,7 @@ import "./fonts/fonts.css";
 
 function Sparziel() {
   const [savings, setSavings] = useState(null);
-  const [savingsGoal, setSavingsGoal] = useState(10000);
+  const [savingsGoal, setSavingsGoal] = useState(null);
   const [state, setState] = useState({ value: 0, data: [] });
   const [loading, setLoading] = useState(true);
 
@@ -22,16 +22,35 @@ function Sparziel() {
         if (response.ok) {
           const jsonResponse = await response.json();
           console.log(jsonResponse);
-          setSavings(jsonResponse.savings_goal);
-          setState({ value: 0, data: getData(jsonResponse.savings_goal) });
+          setSavingsGoal(jsonResponse.savings_goal);
+          fetchDataSavings();
+        } 
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    const fetchDataSavings = async () => {
+      try {
+        const response = await fetch('api/getBalance', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        });
+    
+        if (response.ok) {
+          const jsonResponse = await response.json();
+          console.log(jsonResponse);
+          setSavings(jsonResponse.balance);
+          setState({ value: 0, data: getData(jsonResponse.balance) });
           setLoading(false);
         } 
       } catch (error) {
         console.error(error);
         setLoading(false);
       }
-    };
-
+    }; 
     fetchData();
   }, []);
 
@@ -48,6 +67,19 @@ function Sparziel() {
           clearInterval(setStateInterval);
       };
     }, [savings]);
+
+    /*function getCircle() {
+      let value = 0;
+      const setStateInterval = setInterval(() => {
+          value += savings;
+          value = value >= savings ? setState({ value, data: getData(value)}) : value;
+      }, 200);
+      console.log(savings);
+    
+      return () => {
+          clearInterval(setStateInterval);
+      };
+    }*/
 
     function getData(value) {
       console.log("prüfe: "+ value);
