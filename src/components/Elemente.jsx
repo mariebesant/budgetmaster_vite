@@ -73,7 +73,7 @@ const Elemente = ({ name, category, date, amount }) => {
           <div className="elementsDetailsBoxName">{date}</div>
         </div>
       </div>
-      <div className="elementsAmount"> {amount}</div>
+      <div className="elementsAmount">{amount}</div>
       <button className="changeButton" onClick={handleChangeClick}>
         <MoreVertIcon style={{ color: "white" }} />
       </button>
