@@ -1,3 +1,18 @@
+/**
+ * @file Elemente.js
+ * @description React-Komponente für die Darstellung eines einzelnen Transaktionselements.
+ * Die `Elemente`-Komponente repräsentiert ein Transaktionselement mit Details wie Name, Kategorie,
+ * Datum, Betrag und einer Schaltfläche zum Ändern. Das Kategorie-Icon wird basierend auf der Kategorie
+ * der Transaktion dynamisch ausgewählt. Diese Komponente bietet eine übersichtliche Darstellung von
+ * Finanztransaktionen und kann in der `Transaktionen`-Komponente wiederverwendet werden.
+ *
+ * @component
+ * @example
+ * import Elemente from './Elemente';
+ * // ... JSX innerhalb der Anwendung
+ * <Elemente name="Einkauf" category="Lebensmittel" date="15.12.2023" amount="-80.35€" />
+ */
+
 import React from "react";
 import TvIcon from "@mui/icons-material/Tv";
 import MoreVertIcon from "@mui/icons-material/MoreVert";

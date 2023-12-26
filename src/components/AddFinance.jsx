@@ -1,3 +1,17 @@
+/**
+ * @file AddFinance.js
+ * @description React-Komponente für die Schaltfläche zum Hinzufügen einer Finanztransaktion.
+ * Die `AddFinance`-Komponente stellt eine einfache Schaltfläche bereit, die es dem Benutzer ermöglicht,
+ * eine neue Finanztransaktion hinzuzufügen. Beim Klicken auf die Schaltfläche wird der Benutzer zur
+ * "create"-Seite navigiert, wo er die Details für die neue Transaktion eingeben kann.
+ *
+ * @component
+ * @example
+ * import AddFinance from './AddFinance';
+ * // ... JSX innerhalb der Anwendung
+ * <AddFinance />
+ */
+
 import React from "react";
 import "./AddFinance.css";
 import AddIcon from "@mui/icons-material/Add";

@@ -1,3 +1,18 @@
+/**
+ * @file Transaktionen.js
+ * @description React-Komponente für die Darstellung einer Liste von Finanztransaktionen.
+ * Die `Transaktionen`-Komponente rendert eine Liste von Transaktionselementen, die durch die
+ * Daten in der `elemente`-Array-Prop repräsentiert werden. Jedes Transaktionselement wird durch
+ * die `Elemente`-Komponente dargestellt. Diese Komponente bietet eine übersichtliche Darstellung
+ * von Finanztransaktionen und kann in verschiedenen Teilen der Anwendung wiederverwendet werden.
+ *
+ * @component
+ * @example
+ * import Transaktionen from './Transaktionen';
+ * // ... JSX innerhalb der Anwendung
+ * <Transaktionen />
+ */
+
 import React from "react";
 import Elemente from "./Elemente";
 import "./fonts/fonts.css";
