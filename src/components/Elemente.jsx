@@ -10,13 +10,31 @@ import WorkIcon from "@mui/icons-material/Work";
 import { useNavigate } from "react-router-dom";
 import Create from "./Pages/Create";
 
+/**
+ * Die Elemente-Komponente rendert eine Transaktionskachel mit Details wie Name, Kategorie, Datum, Betrag und einer Schaltfläche zum Ändern.
+ *
+ * @component
+ * @param {Object} props - Die Eigenschaften der Transaktion.
+ * @param {string} props.name - Der Name der Transaktion.
+ * @param {string} props.category - Die Kategorie der Transaktion.
+ * @param {string} props.date - Das Datum der Transaktion.
+ * @param {string} props.amount - Der Betrag der Transaktion.
+ * @returns {JSX.Element} - React-Komponente für eine Transaktionskachel.
+ */
 const Elemente = ({ name, category, date, amount }) => {
   const navigate = useNavigate();
 
+  /**
+   * Navigiert zur "create"-Seite, wenn auf die Ändern-Schaltfläche geklickt wird.
+   *
+   * @function
+   * @inner
+   */
   const handleChangeClick = () => {
     navigate("/create");
   };
 
+  // Standard-Icon für den Fall, dass keine passende Kategorie gefunden wird.
   let categoryIcon = (
     <HelpOutlineIcon
       className="defaultIcon"
@@ -24,6 +42,7 @@ const Elemente = ({ name, category, date, amount }) => {
     ></HelpOutlineIcon>
   );
 
+  // Setzt das Kategorie-Icon basierend auf der Kategorie der Transaktion.
   switch (category) {
     case "Technik":
       categoryIcon = (
@@ -54,7 +73,6 @@ const Elemente = ({ name, category, date, amount }) => {
       );
       break;
 
-    // Füge weitere Cases hinzu, wenn du mehr Kategorien hinzufügst
     default:
       <HelpOutlineIcon
         className="defaultIcon"
@@ -63,6 +81,11 @@ const Elemente = ({ name, category, date, amount }) => {
       break;
   }
 
+  /**
+   * Rendert eine Transaktionskachel mit Details und Ändern-Schaltfläche.
+   *
+   * @returns {JSX.Element} - React-Komponente für eine Transaktionskachel.
+   */
   return (
     <div className="elements">
       {categoryIcon}

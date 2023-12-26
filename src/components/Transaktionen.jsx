@@ -3,6 +3,15 @@ import Elemente from "./Elemente";
 import "./fonts/fonts.css";
 import "./Transaktionen.css";
 
+/**
+ * Daten für Transaktionselemente.
+ * @typedef {Object} TransaktionElement
+ * @property {string} name - Der Name der Transaktion.
+ * @property {string} category - Die Kategorie der Transaktion.
+ * @property {string} date - Das Datum der Transaktion.
+ * @property {string} amount - Der Betrag der Transaktion.
+ */
+
 const elemente = [
   {
     // categoryIcon,
@@ -64,6 +73,15 @@ const elemente = [
 ];
 
 const Transaktionen = () => {
+  /**
+   * Eine Liste von Transaktionselementen.
+   * @type {TransaktionElement[]}
+   */
+
+  /**
+   * Die Transaktionen-Komponente rendert eine Liste von Transaktionselementen.
+   * @returns {JSX.Element} React-Komponente.
+   */
   return (
     <div className="box">
       {elemente.map((item, index) => {
