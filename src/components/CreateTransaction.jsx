@@ -7,6 +7,11 @@ import InputAdornment from "@mui/material/InputAdornment";
 import { useState } from "react";
 import Button from "@mui/material/Button";
 
+
+/**
+ * Funktion, die das aktuelle Datum im Format "TT/MM/JJJJ" zurückgibt.
+ * @returns {string} Das aktuelle Datum im Format "TT/MM/JJJJ".
+ */
 function getDate() {
   const heute = new Date();
   const tag = heute.getDate();
@@ -18,6 +23,11 @@ function getDate() {
   }/${jahr}`;
 }
 
+/**
+ * Funktion, die überprüft, ob ein Textfeld gefüllt ist.
+ * @param {any} value - Der zu überprüfende Wert.
+ * @returns {string} Die Hintergrundfarbe für das Textfeld.
+ */
 const isFilled = (value) => {
   if (value == null || value == "") {
     return "#E1E1E1";
@@ -25,6 +35,10 @@ const isFilled = (value) => {
   return "linear-gradient(to right, #AF69B3, #7B69C7, #4668DB) 1";
 };
 
+/**
+ * Komponente für die Erstellung einer Transaktion.
+ * @returns {JSX.Element} Die Komponente für die Erstellung einer Transaktion.
+ */
 const CreateTransaction = () => {
   const [description, setDescription] = useState();
   const [categoryValue, setCategoryValue] = useState();
@@ -33,10 +47,19 @@ const CreateTransaction = () => {
   const [date, setDate] = useState(getDate());
   const [comment, setComment] = useState();
 
+  /**
+   * Funktion zum Formatieren des Betrags.
+   * @param {number} amount - Der zu formatierende Betrag.
+   * @returns {string} Der formatierte Betrag.
+   */
   const formatAmount = (amount) => {
     return (Number(amount) / 100).toFixed(2);
   };
 
+  /**
+   * Funktion zum Bearbeiten der Änderungen des Betrags.
+   * @param {object} event - Das Event-Objekt für die Änderung des Betrags.
+   */
   const handleAmountChange = (event) => {
     console.log("handleAmountChange aufgerufen");
     let input = event.target.value;
@@ -46,6 +69,7 @@ const CreateTransaction = () => {
     }
     setAmount(amount);
   };
+
 
   return (
     <Box
@@ -132,6 +156,7 @@ const CreateTransaction = () => {
   );
 };
 
+// Liste der Kategorien
 const categories = [
   {
     label: "Lebensmittel",
@@ -146,13 +171,14 @@ const categories = [
     label: "Gehalt",
   },
   {
-    label: "sonstie Einnahme",
+    label: "sonstige Einnahme",
   },
   {
     label: "sonstige Ausgabe",
   },
 ];
 
+// Liste der Transaktionsarten
 const categoriesValue = [
   {
     label: "Ausgabe",
@@ -162,6 +188,7 @@ const categoriesValue = [
   }
 ];
 
+// Stil für den Button
 const buttonStyle = {
   fontFamily: "Avenir Next LT Pro",
   color: "#E1E1E1",
@@ -176,13 +203,18 @@ const buttonStyle = {
   marginLeft: "10px",
   marginTop: "8px",
   cursor: "pointer", 
-}
+};
 
+/**
+ * Funktion zum Stylen der Textfelder.
+ * @param {any} value - Der Wert des Textfelds.
+ * @returns {object} Das Styling-Objekt für das Textfeld.
+ */
 const textfield = (value) => ({
   m: 1,
   width: "25ch",
   "& .css-hfutr2-MuiSvgIcon-root-MuiSelect-icon ": {
-    //Pfleil beim Dropdown
+    //Pfeil beim Dropdown
     color: "#E1E1E1",
   },
   "& .css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input ":
@@ -192,7 +224,7 @@ const textfield = (value) => ({
       fontFamily: "Avenir Next LT Pro",
     },
   "& .css-1jy569b-MuiFormLabel-root-MuiInputLabel-root.Mui-focused": {
-    //Placeholder wird oben zum HelpText solang man es auswählt
+    //Placeholder wird oben zum HelpText solange man es auswählt
     color: "#E1E1E1",
     fontFamily: "Avenir Next LT Pro",
   },
@@ -214,25 +246,25 @@ const textfield = (value) => ({
     color: "transparent",
   },
   "& .MuiOutlinedInput-root": {
-    //Border (farbe)
+    //Border (Farbe)
     "& fieldset": {
-      //(farbe) solang es nicht ausgewählt ist
+      //(Farbe) solange es nicht ausgewählt ist
       borderRadius: "0px",
-      borderImage: isFilled(value), //verwendet je nach passendem return
+      borderImage: isFilled(value), // Verwendet je nach passendem Rückgabewert
       borderColor: isFilled(value),
     },
     "&:hover fieldset": {
-      //(farbe) während hover
+      //(Farbe) während des Hovers
       borderColor: "#A7A7A7",
       borderRadius: "0px",
     },
     "&.Mui-focused fieldset": {
-      //(farbe) während es ausgewählt ist
+      //(Farbe) während es ausgewählt ist
       borderImage: "linear-gradient(to right, #AF69B3, #7B69C7, #4668DB) 1",
     },
   },
   "& .MuiInputBase-root .MuiInputBase-input": {
-    // Text der eingetragen wurde
+    // Text, der eingetragen wurde
     color: "#fff",
     fontFamily: "Avenir Next LT Pro",
   },
