@@ -1,5 +1,5 @@
 import React from "react";
-import picture from "./Images/tierschutz-hunde.png";
+import picture from "./Images/budgetmaster_play.png";
 import "./fonts/fonts.css";
 import Header from "./Header";
 import { useNavigate } from 'react-router-dom';

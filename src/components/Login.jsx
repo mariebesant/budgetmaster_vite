@@ -7,6 +7,7 @@ import password_icon from './Images/password.png'
 import birthday_icon from './Images/birthday.png'
 import { useNavigate } from 'react-router-dom'
 import Header from './Header'
+import "./fonts/fonts.css";
 import { Password } from '@mui/icons-material'
 
 

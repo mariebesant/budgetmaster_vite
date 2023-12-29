@@ -24,6 +24,7 @@
     -webkit-text-fill-color: transparent;
     font-size: 30px;
     font-weight: 700;
+    font-family: Avenir Next LT Pro Bold;
 }
 
 .underline{
@@ -69,6 +70,7 @@
     margin-top: 27px;
     color: grey;
     font-size: 14px;
+    font-family: Avenir Next LT Pro;
 }
 
 .forgot-password span{
@@ -96,6 +98,7 @@
     font-size: 12px;
     font-weight: 700;
     cursor: pointer;
+    font-family: Avenir Next LT Pro Bold;
 }
 
 .gray{
@@ -117,4 +120,5 @@
     font-size: 16px;
     font-weight: 700;
     cursor: pointer;
+    font-family: Avenir Next LT Pro Bold;
 }
