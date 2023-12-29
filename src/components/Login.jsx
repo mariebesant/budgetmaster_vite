@@ -19,11 +19,15 @@ import { Password } from '@mui/icons-material'
  * @function
  * @name Login
  * @returns {JSX.Element} Gerenderte Login Komponente
+ * @description Die Login-Funktionalkomponente repräsentiert das Login und die Registrierung eines Benutzers.
+ * Sie bietet ein Formular, welches einem Benutzer ermöglicht, ein neues Konto zu erstellen.
+ * Anschließend kann das erstellte Konto benutzt werden, um sich anzumelden.
  */
 const Login = () => {
 
     /**
      * Zustand für die aktuelle Aktion (Registrieren oder Anmelden).
+     * Formular wechselt die Eingabewerte, jenachdem auf welchen Button der Benutzer klickt.
      * @name action
      * @type {string}
      * @default "Registrieren"
@@ -49,7 +53,11 @@ const Login = () => {
         navigate('/forgotpassword');
     }
 
-    // Zustände für die Eingabefelder
+    /**
+     * @name action
+     * @type {string}
+     * @description Zustände für die Eingabefelder, welche die eingegebenden Daten an das Backend übergeben.
+     */
     const [firstname, firstnameUpdate] = useState('');
     const [lastname, lastnameupdate] = useState('');
     const [email, emailupdate] = useState('');
@@ -58,13 +66,17 @@ const Login = () => {
     const [passwort, passwortupdate] = useState('');
 
     /**
-     * Registriert einen neuen Benutzer mit den eingegebenen Daten.
+     * Registriert einen neuen Benutzer mit den eingegebenen Daten aus den Eingabefeldern.
      * @async
      * @function
      * @name register
-     * @inner
+     * @throws {Error} - Fehler bei der HTTP-Anfrage
      */
     async function register() {
+
+        /**
+         * @description Erhält die Daten aus den Eingabefeldern und sichert sie in der Konstante.
+         */
         const data = {
             first_name: firstname,
             last_name: lastname,
@@ -73,6 +85,13 @@ const Login = () => {
             username: username,
             birthdate: birthdate
         }
+
+        /**
+         * @description HTTP POST Anfrage mittels eines "Fetch-API-Requests" wird an den Backend-Endpunkt gesendet.
+         * Daten aus den Eingabefeldern wird über ein JSON-Format übermittelt.
+         * Erhält eine Antwort vom Backend, ob die Registrierung erfolgreich war oder nicht.
+         * Dies wird kurz über einen alert dem Benutzer signalisiert, ansonsten wird ein Error ausgegeben.
+         */
 
         try {
             const response = await fetch('/api/signUp', {
@@ -98,18 +117,27 @@ const Login = () => {
     }
 
     /**
-     * Meldet einen Benutzer mit den eingegebenen Daten an.
+     * Meldet einen Benutzer mit den eingegebenen Daten aus den Einfabegeldern an.
      * @async
      * @function
      * @name login
-     * @inner
+     * @throws {Error} - Fehler bei der HTTP-Anfrage
      */
     async function login() {
+
+        /**
+         * @description Erhält die Daten aus den Eingabefeldern und sichert sie in der Konstante.
+         */
         const data = {
           password: passwort,
           username: username
         };
       
+        /**
+         * @description HTTP POST Anfrage mittels eines "Fetch-API-Requests" wird an den Backend-Endpunkt gesendet.
+         * Daten aus den Eingabefeldern wird über ein JSON-Format übermittelt.
+         * Erhält eine Antwort vom Backend, ob die Anmeldung erfolgreich war und wird dann weiter zum Dashboard geleitet.
+         */
         try {
           const response = await fetch('/api/login', {
             method: 'POST',
@@ -133,9 +161,14 @@ const Login = () => {
         }
       }
 
+    /**
+     * @description Erzeugung der Login-Komponente.
+     * Folmular welches die Eingabe-Inputs beinhaltet und die Buttons zum Registrieren, Anmelden und dem varieren zwischen den beiden Formularen.
+     * Eingabewerte werden in den Konstanten gesichert.
+     */
     return (
     <div>
-        <Header></Header>
+    <Header></Header>
     <div className='container'>
 
         <div className="header">
