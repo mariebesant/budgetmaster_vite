@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: Landingpage.jsx</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: Landingpage.jsx</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @file Landingpage.jsx
+ * @description React-Komponente für die Hauptseite der Anwendung.
+ * Die `Landingpage`-Komponente repräsentiert die Hauptseite der Anwendung.
+ * Sie enthält eine kurze Beschreibung der Anwendung, Buttons zum Navigieren
+ * zum Dashboard und zur Registrierungsseite, sowie ein Tutorial.
+ *
+ * @component
+ * @example
+ * import Landingpage from './Landingpage';
+ * // ... JSX innerhalb der Anwendung
+ * &lt;Landingpage />
+ */
+
+import React from "react";
+import picture from "./Images/Placeholder.png";
+import "./fonts/fonts.css";
+import { useNavigate } from 'react-router-dom';
+
+/**
+ * Landingpage Funktionalkomponente
+ *
+ * @function
+ * @returns {JSX.Element} - React JSX Element
+ * @description Die `Landingpage`-Funktionalkomponente repräsentiert die Hauptseite
+ * der Anwendung und enthält eine Überschrift, eine Beschreibung, Buttons zum Navigieren
+ * und ein Tutorialbild.
+ */
+const Landingpage = () => {
+  
+    // React-Router Hook zum Navigieren zwischen Seiten
+    const navigate = useNavigate();
+
+     /**
+     * Handler für den Klick auf den Registrieren-Button
+     * Navigiert zur Login-Seite
+     *
+     * @function
+     */
+    const handleRegisterClick = () => {
+        navigate('/login');
+    };
+
+    /**
+     * @description
+     * Funktion, die überprüft, ob der Benutzer eingeloggt ist, indem sie eine Anfrage an die Backend-API sendet.
+     * Wenn der Benutzer eingeloggt ist, wird er zum Dashboard weitergeleitet, andernfalls wird eine Benachrichtigung angezeigt.
+     * 
+     * @function
+     * @async
+     */
+    async function handleLoggedIn() {
+        // Sendet eine Anfrage an die Backend-API, um den Authentifizierungsstatus zu überprüfen
+        const response = await fetch('/api/checkLoggedIn')
+        // Extrahiert JSON-Daten aus der Antwort
+        const data = await response.json();
+        
+        // Protokolliert die erhaltenen Daten (ür Debugging-Zwecke)
+        console.log(data)
+        // Überprüft, ob die Antwort erfolgreich war und der Benutzer eingeloggt ist
+        if(response.ok &amp;&amp; data.isLoggedIn){
+          // Leitet den Benutzer zum Dashboard weiter
+          return navigate('/dashboard');
+        }
+        // Zeigt eine Benachrichtigung an, wenn der Benutzer nicht eingeloggt ist
+        return alert("Logge dich erst ein!")
+      }
+
+    /**
+     * Rendermethode für die Landingpage-Komponente
+     *
+     * @function
+     * @returns {JSX.Element} - React JSX Element
+     * @description Diese Methode rendert die Hauptseite der Anwendung mit einer Überschrift,
+     * Beschreibungstext, Buttons und einem Tutorialbild.
+     */
+    return (
+        &lt;div>
+            {/* Hauptcontainer für die Landingpage */}
+            &lt;div style={landingpage}>
+                {/* Textcontainer mit Beschreibung und Buttons */}
+                &lt;div style={text}>
+                    {/* Überschrift */}
+                    &lt;div style={header}>Dein digitaler Finanzassistent&lt;/div>
+
+                    {/* Beschreibungstext */}
+                    &lt;div style={description}>
+                        "Budget'Master" ist Ihre All-in-One-Plattform für ein müheloses
+                        Finanzmanagement. Behalten Sie den Überblick über Ausgaben und Einnahmen,
+                        setzen Sie individuelle Sparziele und verfolgen Sie mühelos Ihren finanziellen
+                        Fortschritt. Mit einer benutzerfreundlichen Oberfläche macht "Budget'Master"
+                        die Verwaltung Ihrer Finanzen so einfach wie nie zuvor.
+                    &lt;/div>
+
+                    {/* Buttoncontainer */}
+                    &lt;div style={buttons}>
+                        {/* Dashboard-Button */}
+                        &lt;button style={login} onClick={handleLoggedIn}>Dashboard&lt;/button>
+
+                        {/* Registrieren-Button */}
+                        &lt;button style={login} onClick={handleRegisterClick}>Registrieren&lt;/button>
+                    &lt;/div>
+                &lt;/div>
+
+                {/* Tutorialcontainer */}
+                &lt;div style={tutorial}>
+                    &lt;img src={picture} alt="Tutorial" style={video}/>
+                &lt;/div>
+            &lt;/div>
+        &lt;/div>
+    );
+};
+
+// Styling-Objekte für verschiedene Teile der Komponente
+const landingpage = {
+    display: "flex",
+    marginLeft: "auto",
+    maxWidth: "1300px",
+    marginTop: "16vh",
+    marginRight: "auto",
+};
+
+const text = {
+    width: "50%",
+    marginRight: "2%",
+};
+
+const header = {
+    fontFamily: "Avenir Next LT Pro Bold",
+    fontSize: "64px",
+    fontWeight: "bold",
+    background: "linear-gradient(to right, #AF69B3, #7B69C7, #4668DB)",
+    WebkitBackgroundClip: "text",
+    color: "transparent",
+};
+
+const description = {
+    width: "460px",
+    fontFamily: "Avenir Next LT Pro",
+    fontSize: "17px",
+    fontWeight: "100",
+    marginTop: "40px",
+    color: "#E1E1E1",
+};
+
+const buttons = {
+    display: "flex",
+    marginTop: "100px",
+};
+
+const login = {
+    fontFamily: "Avenir Next LT Pro",
+    color: "#E1E1E1",
+    width: "125px",
+    height: "40px",
+    textAlign: "center",
+    border: "0px solid",
+    backgroundImage: "linear-gradient(to right, #AF69B3, #7B69C7, #4668DB) 1",
+    borderRadius: "5px",
+    background: "linear-gradient(to right, #AF69B3, #7B69C7, #4668DB)",
+    marginRight: "30px",
+    cursor: "pointer",
+};
+
+const registration = {
+    fontFamily: "Avenir Next LT Pro",
+    color: "#E1E1E1",
+    width: "125px",
+    height: "40px",
+    textAlign: "center",
+    border: "2px solid",
+    borderImage: "linear-gradient(to right, #AF69B3, #7B69C7, #4668DB) 1",
+    borderRadius: "5px",
+    background: "linear-gradient(to right, #AF69B3, #7B69C7, #4668DB)",
+    WebkitBackgroundClip: "square",
+    marginRight: "30px",
+    cursor: "pointer", 
+}
+
+const registration2 = {
+    fontFamily: "Avenir Next LT Pro",
+    color: "#E1E1E1",
+    width: "125px",
+    height: "40px",
+    textAlign: "center",
+    border: "2px solid",
+    borderImage: "linear-gradient(to right, #AF69B3, #7B69C7, #4668DB) 1",
+    borderRadius: "5px",
+    background: "transparent",
+    cursor: "pointer",
+}
+
+const tutorial = {
+    backgroundColor: "",
+    width: "50%",
+    marginLeft: "2%",
+};
+
+const video = {
+    width: "800px",
+    height: "auto",
+};
+
+export default Landingpage;</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#Landingpage">Landingpage</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Fri Dec 29 2023 12:40:01 GMT+0100 (Central European Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

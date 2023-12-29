@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: Elemente.jsx</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: Elemente.jsx</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @file Elemente.js
+ * @description React-Komponente für die Darstellung eines einzelnen Transaktionselements.
+ * Die `Elemente`-Komponente repräsentiert ein Transaktionselement mit Details wie Name, Kategorie,
+ * Datum, Betrag und einer Schaltfläche zum Ändern. Das Kategorie-Icon wird basierend auf der Kategorie
+ * der Transaktion dynamisch ausgewählt. Diese Komponente bietet eine übersichtliche Darstellung von
+ * Finanztransaktionen und kann in der `Transaktionen`-Komponente wiederverwendet werden.
+ *
+ * @component
+ * @example
+ * import Elemente from './Elemente';
+ * // ... JSX innerhalb der Anwendung
+ * &lt;Elemente name="Einkauf" category="Lebensmittel" date="15.12.2023" amount="-80.35€" />
+ */
+
+import React from "react";
+import TvIcon from "@mui/icons-material/Tv";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
+import FastfoodIcon from "@mui/icons-material/Fastfood";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import DirectionsCarIcon from "@mui/icons-material/DirectionsCar";
+import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
+import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
+import WorkIcon from "@mui/icons-material/Work";
+import { useNavigate } from "react-router-dom";
+import Create from "./Pages/Create";
+
+/**
+ * Die Elemente-Komponente rendert eine Transaktionskachel mit Details wie Name, Kategorie, Datum, Betrag und einer Schaltfläche zum Ändern.
+ *
+ * @component
+ * @param {Object} props - Die Eigenschaften der Transaktion.
+ * @param {string} props.name - Der Name der Transaktion.
+ * @param {string} props.category - Die Kategorie der Transaktion.
+ * @param {string} props.date - Das Datum der Transaktion.
+ * @param {string} props.amount - Der Betrag der Transaktion.
+ * @returns {JSX.Element} - React-Komponente für eine Transaktionskachel.
+ */
+const Elemente = ({ name, category, date, amount }) => {
+  const navigate = useNavigate();
+
+  /**
+   * Navigiert zur "create"-Seite, wenn auf die Ändern-Schaltfläche geklickt wird.
+   *
+   * @function
+   * @inner
+   */
+  const handleChangeClick = () => {
+    navigate("/create");
+  };
+
+  // Standard-Icon für den Fall, dass keine passende Kategorie gefunden wird.
+  let categoryIcon = (
+    &lt;HelpOutlineIcon
+      className="defaultIcon"
+      style={{ fontSize: 40 }}
+    >&lt;/HelpOutlineIcon>
+  );
+
+  // Setzt das Kategorie-Icon basierend auf der Kategorie der Transaktion.
+  switch (category) {
+    case "Technik":
+      categoryIcon = (
+        &lt;TvIcon className="technikIcon" style={{ fontSize: 40 }} />
+      );
+      break;
+    case "Lebensmittel":
+      categoryIcon = (
+        &lt;ShoppingCartIcon className="shoppingIcon" style={{ fontSize: 40 }} />
+      );
+      break;
+    case "Essen":
+      categoryIcon = (
+        &lt;FastfoodIcon className="foodIcon" style={{ fontSize: 40 }} />
+      );
+      break;
+    case "Auto":
+      categoryIcon = (
+        &lt;DirectionsCarIcon className="carIcon" style={{ fontSize: 40 }} />
+      );
+      break;
+    case "Gehalt":
+      categoryIcon = &lt;WorkIcon className="workIcon" style={{ fontSize: 40 }} />;
+      break;
+    case "Sonstiges":
+      categoryIcon = (
+        &lt;AutoAwesomeIcon className="otherIcon" style={{ fontSize: 40 }} />
+      );
+      break;
+
+    default:
+      &lt;HelpOutlineIcon
+        className="defaultIcon"
+        style={{ fontSize: 40 }}
+      >&lt;/HelpOutlineIcon>;
+      break;
+  }
+
+  /**
+   * Rendert eine Transaktionskachel mit Details und Ändern-Schaltfläche.
+   *
+   * @returns {JSX.Element} - React-Komponente für eine Transaktionskachel.
+   */
+  return (
+    &lt;div className="elements">
+      {categoryIcon}
+      &lt;div className="elementsDetails">
+        &lt;div className="elementsDetailsName"> {name}&lt;/div>
+        &lt;div className="elementsDetailsBox">
+          &lt;div className="elementsDetailsBoxCategory">{category}&lt;/div>
+          &lt;div className="elementsDetailsBoxName">{date}&lt;/div>
+        &lt;/div>
+      &lt;/div>
+      &lt;div className="elementsAmount">{amount}&lt;/div>
+      &lt;button className="changeButton" onClick={handleChangeClick}>
+        &lt;MoreVertIcon style={{ color: "white" }} />
+      &lt;/button>
+    &lt;/div>
+  );
+};
+
+export default Elemente;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#Elemente">Elemente</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Fri Dec 29 2023 12:34:22 GMT+0100 (Central European Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

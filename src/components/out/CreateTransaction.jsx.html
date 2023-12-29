@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: CreateTransaction.jsx</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: CreateTransaction.jsx</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import * as React from "react";
+import Box from "@mui/material/Box";
+import TextField from "@mui/material/TextField";
+import "./fonts/fonts.css";
+import { MenuItem } from "@mui/material";
+import InputAdornment from "@mui/material/InputAdornment";
+import { useState } from "react";
+import Button from "@mui/material/Button";
+
+
+/**
+ * Funktion, die das aktuelle Datum im Format "TT/MM/JJJJ" zurückgibt.
+ * @returns {string} Das aktuelle Datum im Format "TT/MM/JJJJ".
+ */
+function getDate() {
+  const heute = new Date();
+  const tag = heute.getDate();
+  const monat = heute.getMonth() + 1;
+  const jahr = heute.getFullYear();
+
+  return `${tag &lt; 10 ? "0" + tag : tag}/${
+    monat &lt; 10 ? "0" + monat : monat
+  }/${jahr}`;
+}
+
+/**
+ * Funktion, die überprüft, ob ein Textfeld gefüllt ist.
+ * @param {any} value - Der zu überprüfende Wert.
+ * @returns {string} Die Hintergrundfarbe für das Textfeld.
+ */
+const isFilled = (value) => {
+  if (value == null || value == "") {
+    return "#E1E1E1";
+  }
+  return "linear-gradient(to right, #AF69B3, #7B69C7, #4668DB) 1";
+};
+
+/**
+ * Komponente für die Erstellung einer Transaktion.
+ * @returns {JSX.Element} Die Komponente für die Erstellung einer Transaktion.
+ */
+const CreateTransaction = () => {
+  const [description, setDescription] = useState();
+  const [categoryValue, setCategoryValue] = useState();
+  const [category, setCategory] = useState();
+  const [amount, setAmount] = useState(0);
+  const [date, setDate] = useState(getDate());
+  const [comment, setComment] = useState();
+
+  /**
+   * Funktion zum Formatieren des Betrags.
+   * @param {number} amount - Der zu formatierende Betrag.
+   * @returns {string} Der formatierte Betrag.
+   */
+  const formatAmount = (amount) => {
+    return (Number(amount) / 100).toFixed(2);
+  };
+
+  /**
+   * Funktion zum Bearbeiten der Änderungen des Betrags.
+   * @param {object} event - Das Event-Objekt für die Änderung des Betrags.
+   */
+  const handleAmountChange = (event) => {
+    console.log("handleAmountChange aufgerufen");
+    let input = event.target.value;
+    let amount = input.replace(".", "");
+    if (event.nativeEvent.inputType === "deleteContentBackward") {
+      amount = amount.slice(0, -1); // Entfernt das letzte Zeichen
+    }
+    setAmount(amount);
+  };
+
+
+  return (
+    &lt;Box
+      component="form"
+      sx={{
+        "&amp; .MuiTextField-root": { m: 1, width: "99%" },
+        background: "#1D1D1D",
+      }}
+      noValidate
+      autoComplete="off"
+    >
+      &lt;div>
+        &lt;TextField
+          sx={textfield(description)}
+          required
+          label="Bezeichnung"
+          value={description}
+          onChange={(event) => setDescription(event.target.value)}
+        />
+        &lt;TextField
+          sx={textfield(categoryValue)}
+          id="outlined-select-currency"
+          select
+          required
+          label="Transaktionsart"
+          value={categoryValue}
+          onChange={(event) => setCategoryValue(event.target.value)}
+        >
+          {categoriesValue.map((option) => (
+            &lt;MenuItem key={option.label} value={option.label}>
+              {option.label}
+            &lt;/MenuItem>
+          ))}
+        &lt;/TextField>
+        &lt;TextField
+          sx={textfield(category)}
+          id="outlined-select-currency"
+          select
+          required
+          label="Kategorie"
+          value={category}
+          onChange={(event) => setCategory(event.target.value)}
+        >
+          {categories.map((option) => (
+            &lt;MenuItem key={option.label} value={option.label}>
+              {option.label}
+            &lt;/MenuItem>
+          ))}
+        &lt;/TextField>
+        &lt;TextField
+          required
+          label="Betrag"
+          id="outlined-end-adornment"
+          sx={textfield(String(amount))}
+          InputProps={{
+            endAdornment: &lt;InputAdornment position="end">€&lt;/InputAdornment>,
+          }}
+          value={String(formatAmount(amount))}
+          onChange={handleAmountChange}
+        />
+        &lt;TextField
+          sx={textfield(date)}
+          required
+          id="outlined-required"
+          label="Datum"
+          value={date}
+          onChange={(event) => setDate(event.target.value)}
+        />
+        &lt;TextField
+          sx={textfield(comment)}
+          required
+          id="outlined-multiline-flexible"
+          label="Kommentar"
+          multiline
+          maxRows={4}
+          value={comment}
+          onChange={(event) => setComment(event.target.value)}
+        />
+      &lt;/div>
+      &lt;Button style={buttonStyle} onClick={() => console.log(comment)}>
+        fertig
+      &lt;/Button>
+    &lt;/Box>
+  );
+};
+
+// Liste der Kategorien
+const categories = [
+  {
+    label: "Lebensmittel",
+  },
+  {
+    label: "Wohnen",
+  },
+  {
+    label: "Freizeit",
+  },
+  {
+    label: "Gehalt",
+  },
+  {
+    label: "sonstige Einnahme",
+  },
+  {
+    label: "sonstige Ausgabe",
+  },
+];
+
+// Liste der Transaktionsarten
+const categoriesValue = [
+  {
+    label: "Ausgabe",
+  },
+  {
+    label: "Einnahme",
+  }
+];
+
+// Stil für den Button
+const buttonStyle = {
+  fontFamily: "Avenir Next LT Pro",
+  color: "#E1E1E1",
+  width: "125px",
+  height: "40px",
+  textAlign: "center",
+  border: "0px solid",
+  backgroundImage: "linear-gradient(to right, #AF69B3, #7B69C7, #4668DB) 1",
+  borderRadius: "5px",
+  background: "linear-gradient(to right, #AF69B3, #7B69C7, #4668DB)",
+  marginRight: "30px",
+  marginLeft: "10px",
+  marginTop: "8px",
+  cursor: "pointer", 
+};
+
+/**
+ * Funktion zum Stylen der Textfelder.
+ * @param {any} value - Der Wert des Textfelds.
+ * @returns {object} Das Styling-Objekt für das Textfeld.
+ */
+const textfield = (value) => ({
+  m: 1,
+  width: "25ch",
+  "&amp; .css-hfutr2-MuiSvgIcon-root-MuiSelect-icon ": {
+    //Pfeil beim Dropdown
+    color: "#E1E1E1",
+  },
+  "&amp; .css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input ":
+    {
+      //Ausgewählte Werte
+      color: "#E1E1E1",
+      fontFamily: "Avenir Next LT Pro",
+    },
+  "&amp; .css-1jy569b-MuiFormLabel-root-MuiInputLabel-root.Mui-focused": {
+    //Placeholder wird oben zum HelpText solange man es auswählt
+    color: "#E1E1E1",
+    fontFamily: "Avenir Next LT Pro",
+  },
+  "&amp; .css-1pnmrwp-MuiTypography-root": {
+    //Euro
+    color: "#E1E1E1",
+    fontFamily: "Avenir Next LT Pro",
+  },
+  "&amp; .css-1jy569b-MuiFormLabel-root-MuiInputLabel-root": {
+    //HelpText
+    color: "#E1E1E1",
+    fontFamily: "Avenir Next LT Pro",
+  },
+  "&amp; .css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root": {
+    //Placeholder
+    fontFamily: "Avenir Next LT Pro",
+    background: "linear-gradient(to right, #AF69B3, #7B69C7, #4668DB)",
+    WebkitBackgroundClip: "text",
+    color: "transparent",
+  },
+  "&amp; .MuiOutlinedInput-root": {
+    //Border (Farbe)
+    "&amp; fieldset": {
+      //(Farbe) solange es nicht ausgewählt ist
+      borderRadius: "0px",
+      borderImage: isFilled(value), // Verwendet je nach passendem Rückgabewert
+      borderColor: isFilled(value),
+    },
+    "&amp;:hover fieldset": {
+      //(Farbe) während des Hovers
+      borderColor: "#A7A7A7",
+      borderRadius: "0px",
+    },
+    "&amp;.Mui-focused fieldset": {
+      //(Farbe) während es ausgewählt ist
+      borderImage: "linear-gradient(to right, #AF69B3, #7B69C7, #4668DB) 1",
+    },
+  },
+  "&amp; .MuiInputBase-root .MuiInputBase-input": {
+    // Text, der eingetragen wurde
+    color: "#fff",
+    fontFamily: "Avenir Next LT Pro",
+  },
+});
+
+export default CreateTransaction;</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#CreateTransaction">CreateTransaction</a></li><li><a href="global.html#getDate">getDate</a></li><li><a href="global.html#isFilled">isFilled</a></li><li><a href="global.html#textfield">textfield</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Fri Dec 29 2023 12:33:50 GMT+0100 (Central European Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

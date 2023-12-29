@@ -1,3 +1,7 @@
+/**
+ * @module Login
+ */
+
 import React from 'react'
 import { useState } from 'react'
 import './LoginStyle.css'
@@ -9,17 +13,42 @@ import { useNavigate } from 'react-router-dom'
 import Header from './Header'
 import { Password } from '@mui/icons-material'
 
-
+/**
+ * Login Komponente für die Anwendung.
+ * @function
+ * @name Login
+ * @returns {JSX.Element} Gerenderte Login Komponente
+ */
 const Login = () => {
 
+    /**
+     * Zustand für die aktuelle Aktion (Registrieren oder Anmelden).
+     * @name action
+     * @type {string}
+     * @default "Registrieren"
+     * @inner
+     */
     const [action, setAction] = useState("Registrieren");
 
+    /**
+     * Navigationshelfer von react-router-dom.
+     * @name navigate
+     * @type {function}
+     * @inner
+     */
     const navigate=useNavigate();
 
+    /**
+     * Behandelt das Klicken auf "Passwort vergessen", indem es zur entsprechenden Seite navigiert.
+     * @function
+     * @name handleForgotPassword
+     * @inner
+     */
     const handleForgotPassword = () => {
         navigate('/forgotpassword');
     }
 
+    // Zustände für die Eingabefelder
     const [firstname, firstnameUpdate] = useState('');
     const [lastname, lastnameupdate] = useState('');
     const [email, emailupdate] = useState('');
@@ -27,6 +56,13 @@ const Login = () => {
     const [username, usernameupdate] = useState('');
     const [passwort, passwortupdate] = useState('');
 
+    /**
+     * Registriert einen neuen Benutzer mit den eingegebenen Daten.
+     * @async
+     * @function
+     * @name register
+     * @inner
+     */
     async function register() {
         const data = {
             first_name: firstname,
@@ -60,6 +96,13 @@ const Login = () => {
         }
     }
 
+    /**
+     * Meldet einen Benutzer mit den eingegebenen Daten an.
+     * @async
+     * @function
+     * @name login
+     * @inner
+     */
     async function login() {
         const data = {
           password: passwort,
@@ -89,57 +132,7 @@ const Login = () => {
         }
       }
 
-    // function handleMyLogin(event){
-    //     event.preventDefault();
-    //     let userData = {
-    //         username:username,
-    //         passwort:passwort
-    //     }
-    
-    //     // fetch("/getExampleData", {
-    //     //     method:"GET",
-    //     //     headers:{
-    //     //         "Content-Type":"application/json"
-    //     //     },
-    //     //     body: JSON.stringify(userData)
-    //     // }).then(response => response.json()).then(data => console.log(data)).catch(error => console.error(error))
-
-    //     fetch("api/login", {
-    //         method:"POST",
-    //         headers:{
-    //             "Content-Type":"application/json"
-    //         },
-    //         body: JSON.stringify(userData)
-    //     })
-    //     console.log("Clicked");
-    // }
-
-    // const handleLogin = (e) => {
-    //     e.preventDefault();
-    //     const login = {username, passwort};
-
-    //     fetch('/api/login', {
-    //         method: 'POST',
-    //         headers: { "Content-Type": "application/json" },
-    //         body: JSON.stringify(login)
-    //     }).then((resp) => {
-    //         // console.log('Erfolgreich eingeloggt.')
-    //         if(Object.keys(resp).length===0){
-    //             console.log("Gebe einen richtigen Username ein");
-    //         } else {
-    //             if(resp.passwort===passwort){
-    //                 console.log("Erfolgreich");
-    //                 navigate('/');
-    //             } else{
-    //                 console.log("Bitte gebe ein richtiges Passwort ein");
-    //             }
-    //         }
-    //     }).catch((err)=>{
-    //         console.log('Login fehlgeschlagen.')
-    //     })
-    // }
-
-  return (
+    return (
     <div>
         <Header></Header>
     <div className='container'>

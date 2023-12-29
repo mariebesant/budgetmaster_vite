@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: Login.jsx</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: Login.jsx</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @module Login
+ */
+
+import React from 'react'
+import { useState } from 'react'
+import './LoginStyle.css'
+import user_icon from './Images/user.png'
+import email_icon from './Images/email.png'
+import password_icon from './Images/password.png'
+import birthday_icon from './Images/birthday.png'
+import { useNavigate } from 'react-router-dom'
+import Header from './Header'
+import { Password } from '@mui/icons-material'
+
+/**
+ * Login Komponente für die Anwendung.
+ * @function
+ * @name Login
+ * @returns {JSX.Element} Gerenderte Login Komponente
+ */
+const Login = () => {
+
+    /**
+     * Zustand für die aktuelle Aktion (Registrieren oder Anmelden).
+     * @name action
+     * @type {string}
+     * @default "Registrieren"
+     * @inner
+     */
+    const [action, setAction] = useState("Registrieren");
+
+    /**
+     * Navigationshelfer von react-router-dom.
+     * @name navigate
+     * @type {function}
+     * @inner
+     */
+    const navigate=useNavigate();
+
+    /**
+     * Behandelt das Klicken auf "Passwort vergessen", indem es zur entsprechenden Seite navigiert.
+     * @function
+     * @name handleForgotPassword
+     * @inner
+     */
+    const handleForgotPassword = () => {
+        navigate('/forgotpassword');
+    }
+
+    // Zustände für die Eingabefelder
+    const [firstname, firstnameUpdate] = useState('');
+    const [lastname, lastnameupdate] = useState('');
+    const [email, emailupdate] = useState('');
+    const [birthdate, birthdateupdate] = useState('');
+    const [username, usernameupdate] = useState('');
+    const [passwort, passwortupdate] = useState('');
+
+    /**
+     * Registriert einen neuen Benutzer mit den eingegebenen Daten.
+     * @async
+     * @function
+     * @name register
+     * @inner
+     */
+    async function register() {
+        const data = {
+            first_name: firstname,
+            last_name: lastname,
+            email: email,
+            password: passwort,
+            username: username,
+            birthdate: birthdate
+        }
+
+        try {
+            const response = await fetch('/api/signUp', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            });
+
+            if(!response.ok) {
+                throw new Error(`HTTP Error! Status: ${response.status}`);
+            } else {
+                alert('Du wurdest erfolgreich registriert.')
+                navigate('/dashboard')
+            }
+
+            const jsonResponse = await response.json();
+            console.log(jsonResponse);
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    /**
+     * Meldet einen Benutzer mit den eingegebenen Daten an.
+     * @async
+     * @function
+     * @name login
+     * @inner
+     */
+    async function login() {
+        const data = {
+          password: passwort,
+          username: username
+        };
+      
+        try {
+          const response = await fetch('/api/login', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+          });
+      
+          if (!response.ok) {
+            alert('Bitte gebe einen korrekten Benutzernamen und Passwort ein.');
+            throw new Error(`HTTP error! status: ${response.status}`);
+          } else {
+            navigate('/dashboard')
+          }
+      
+          const jsonResponse = await response.json();
+          console.log(jsonResponse);
+        } catch (error) {
+          console.error(error);
+        }
+      }
+
+    return (
+    &lt;div>
+        &lt;Header>&lt;/Header>
+    &lt;div className='container'>
+
+        &lt;div className="header">
+            &lt;div className="text">
+                {action}
+            &lt;/div>
+            &lt;div className="underline">
+
+            &lt;/div>
+        &lt;/div>
+        &lt;form method='POST'>
+            &lt;div className="inputs">
+
+                {action==="Anmelden"?&lt;div>&lt;/div>:&lt;div className="input">
+                    &lt;img src={user_icon} height="20px" width="20px" alt="" />
+                    &lt;input value={firstname} onChange={ev => firstnameUpdate(ev.target.value)} type="FirstName" placeholder="Vorname" />
+                &lt;/div>}
+                {action==="Anmelden"?&lt;div>&lt;/div>:&lt;div className="input">
+                    &lt;img src={user_icon} height="20px" width="20px" alt="" />
+                    &lt;input value={lastname} onChange={ev => lastnameupdate(ev.target.value)} type="LastName" placeholder="Nachname" />
+                &lt;/div>}
+                {action==="Anmelden"?&lt;div>&lt;/div>:&lt;div className="input">
+                    &lt;img src={email_icon} height="20px" width="20px" alt="" />
+                    &lt;input value={email} onChange={ev => emailupdate(ev.target.value)} type="EMail" placeholder="E-Mail" />
+                &lt;/div>}
+                {action==="Anmelden"?&lt;div>&lt;/div>:&lt;div className="input">
+                    &lt;img src={birthday_icon} height="20px" width="20px" alt="" />
+                    &lt;input value={birthdate} onChange={ev => birthdateupdate(ev.target.value)} type="Birthday" placeholder="Geburtsdatum" />
+                &lt;/div>}
+
+                &lt;div className="input">
+                    &lt;img src={user_icon} height="20px" width="20px" alt="" />
+                    &lt;input type="text" value={username} onChange={ev => usernameupdate(ev.target.value)} placeholder="Nutzername" />
+                &lt;/div>
+                &lt;div className="input">
+                    &lt;img src={password_icon} height="20px" width="20px" alt="" />
+                    &lt;input type="Passwort" value={passwort} onChange={ev => passwortupdate(ev.target.value)} placeholder="Passwort"/>
+                &lt;/div>
+            &lt;/div>
+            {action==="Registrieren"?&lt;div>&lt;/div>:        &lt;div className="forgot-password">
+                Passwort vergessen? &lt;span onClick={handleForgotPassword}>Hier klicken!&lt;/span>
+            &lt;/div>}
+
+            {action==="Registrieren"?&lt;div>&lt;/div>:&lt;div type="submit" onClick={login} className="login-container" >
+                    Login
+                &lt;/div>}
+
+            {action==="Anmelden"?&lt;div>&lt;/div>:&lt;div type="submit" onClick={register} className="login-container" >
+                    Registrieren
+            &lt;/div>}
+
+            &lt;div className="submit-container">
+                &lt;div className={action==="Anmelden"?"submit gray":"submit"} onClick={()=>{setAction("Registrieren")}}>
+                    Konto erstellen
+                &lt;/div>
+                &lt;div className={action==="Registrieren"?"submit gray":"submit"} onClick={()=>{setAction("Anmelden")}}>
+                    Anmelden
+                &lt;/div>
+            &lt;/div>
+        &lt;/form>
+    &lt;/div>
+    &lt;/div>
+  )
+};
+
+export default Login;</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-Login.html">Login</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Fri Dec 29 2023 12:46:05 GMT+0100 (Central European Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

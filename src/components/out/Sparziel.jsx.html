@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: Sparziel.jsx</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: Sparziel.jsx</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { VictoryPie, Slice, VictoryLabel, VictoryAnimation } from "victory";
+import { useState, useEffect } from "react";
+import "./fonts/fonts.css";
+
+/**
+ * Komponente für das Sparziel.
+ */
+function Sparziel() {
+  const [savings, setSavings] = useState(null); // Aktuelles Guthaben
+  const [savingsGoal, setSavingsGoal] = useState(null); // Sparziel
+  const [state, setState] = useState({ value: 0, data: [] }); // Zustand für die Animation
+  const [loading, setLoading] = useState(true); // Ladezustand
+
+  /**
+   * Lädt das Sparziel und das Saldo vom Server.
+   */
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('api/getSavingsGoal', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        });
+
+        if (response.ok) {
+          const jsonResponse = await response.json();
+          console.log(jsonResponse);
+          setSavingsGoal(jsonResponse.savings_goal);
+          fetchDataSavings();
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    const fetchDataSavings = async () => {
+      try {
+        const response = await fetch('api/getBalance', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        });
+
+        if (response.ok) {
+          const jsonResponse = await response.json();
+          console.log(jsonResponse);
+          setSavings(jsonResponse.balance);
+          setState({ value: 0, data: getData(jsonResponse.balance) });
+          setLoading(false);
+        }
+      } catch (error) {
+        console.error(error);
+        setLoading(false);
+      }
+    };
+    fetchData();
+  }, []);
+
+  /**
+   * Aktualisiert den Zustand der Animation, um den Kreis zu füllen.
+   */
+  useEffect(() => {
+    let value = 0;
+    const setStateInterval = setInterval(() => {
+      value += savings;
+      value = value >= savings ? setState({ value, data: getData(value) }) : value;
+    }, 200);
+    console.log(savings);
+
+    return () => {
+      clearInterval(setStateInterval);
+    };
+  }, [savings]);
+
+  /**
+   * Gibt die Daten für das Diagramm zurück.
+   * @param {number} value - Aktuelles Salso
+   * @returns {Array} - Daten für das Diagramm
+   */
+  function getData(value) {
+    console.log("prüfe: " + value);
+    return [
+      { x: 1, y: value },
+      { x: 2, y: savingsGoal - value },
+    ];
+  }
+
+  /**
+   * Berechnet die Schriftgröße basierend auf dem Saldo.
+   * @param {number} value - Aktuelles Saldo
+   * @returns {number} - Schriftgröße
+   */
+  function calcFont(value) {
+    if (value &lt; 100000) {
+      return 45;
+    }
+    if (value &lt; 1000000) {
+      return 39;
+    } else {
+      return 33;
+    }
+  }
+
+  /**
+   * Komponente für den Verlauf des Diagramms.
+   * @param {object} props - Eigenschaften der Komponente
+   * @returns {JSX.Element} - Verlauf des Diagramms
+   */
+  const GradientSlice = props => {
+    return (
+      &lt;g>
+        &lt;defs>
+          &lt;linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+            &lt;stop offset="0%" stopColor="#AF69B3" />
+            &lt;stop offset="50%" stopColor="#7B69C7" />
+            &lt;stop offset="100%" stopColor="#4668DB" />
+          &lt;/linearGradient>
+        &lt;/defs>
+        &lt;Slice {...props} style={{ fill: props.datum.x === 1 ? 'url(#gradient)' : 'transparent' }} />
+      &lt;/g>
+    );
+  };
+
+  /**
+   * Konvertiert den Betrag in Euro.
+   * @param {number} num - Betrag
+   * @returns {string} - Betrag in Euro
+   */
+  function convertEuro(num) {
+    return (num / 100).toFixed(2);
+  }
+
+  if (loading) {
+    return &lt;div>Loading...&lt;/div>;
+  }
+  
+  return (
+    &lt;div>
+      &lt;svg viewBox="0 0 400 400" width="100%" height="100%">
+        &lt;VictoryPie
+          dataComponent={&lt;GradientSlice />}
+          standalone={false}
+          animate={{ duration: 1000 }}
+          width={400}
+          height={400}
+          data={state.data}
+          innerRadius={120}
+          cornerRadius={25}
+          labels={() => null}
+        />
+        &lt;VictoryAnimation duration={2000} data={state}>
+          {(newProps) => {
+            return (
+              &lt;VictoryLabel
+                textAnchor="middle"
+                verticalAnchor="middle"
+                x={200}
+                y={200}
+                text={`${convertEuro(newProps.value)} €`}
+                style={{ fontSize: calcFont(newProps.value), fontFamily: "Avenir Next LT Pro", fill: '#E1E1E1' }}
+              />
+            );
+          }}
+        &lt;/VictoryAnimation>
+      &lt;/svg>
+    &lt;/div>
+  );
+}
+
+export default Sparziel;</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#Sparziel">Sparziel</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Fri Dec 29 2023 12:46:45 GMT+0100 (Central European Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
