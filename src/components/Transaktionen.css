@@ -40,6 +40,7 @@
   width: 97%;
   height: 60px;
   display: flex;
+  flex-direction: row;
   align-items: center;
   justify-content: space-between;
 
@@ -74,5 +75,9 @@
     .elementsDetailsBoxCategory {
       padding-right: 10px;
     }
+  }
+
+  .elementsAmount.Rot {
+    color: red;
   }
 }
